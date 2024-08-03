@@ -1,26 +1,5 @@
-import { useState } from "react"
 
-export default function UserInput() {
-
-  const [userInput, setUserInput] = useState({
-    initialInvestment: 10000,
-    annualInvestment: 1200,
-    expectedReturn: 6,
-    duration: 10
-  })
-
-
-  const handleChange = (inputIdentifier, newValue) => {
-    //The updated state needs to depend on the old data for the inputs
-    //that where not changed. We use a function for to get the prev state
-    //we then return the old obj into the new object
-        setUserInput(prevUserInput => {
-          return {
-            ...prevUserInput,
-            [inputIdentifier]: newValue
-          }
-        })
-  }
+export default function UserInput({ onChange, userInput}) {
 
   return (
     <>
@@ -32,7 +11,7 @@ export default function UserInput() {
               type="number" 
               required
               value={userInput.initialInvestment}  
-              onChange={(event) => handleChange('initialInvestment', event.target.value)}
+              onChange={(event) => onChange('initialInvestment', event.target.value)}
             />
           </p>
           <p>
