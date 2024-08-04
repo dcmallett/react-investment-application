@@ -13,6 +13,8 @@ function App() {
     duration: 10
   })
 
+  const inputIsValid = userInput.duration >= 1;
+
   const handleChange = (inputIdentifier, newValue) => {
     //The updated state needs to depend on the old data for the inputs
     //that where not changed. We use a function for to get the prev state
@@ -20,7 +22,7 @@ function App() {
         setUserInput(prevUserInput => {
           return {
             ...prevUserInput,
-            [inputIdentifier]: newValue
+            [inputIdentifier]: +newValue
           }
         })
   }
@@ -30,7 +32,10 @@ function App() {
     <>
       <Header />
       <UserInput userInput={userInput} onChange={handleChange} />
-      <Results input={userInput} />
+      {!inputIsValid && (
+        <p className="center">Please enter a duration greater than zero</p>
+      )}
+      {inputIsValid && <Results input={userInput} />}
     </>
   )
 }
